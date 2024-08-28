@@ -1,0 +1,1 @@
+# ikukantai-base .yaml files from Knative Serving
