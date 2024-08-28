@@ -1,0 +1,52 @@
+apiVersion: serving.knative.dev/v1
+kind: Route
+metadata:
+  annotations:
+    serving.knative.dev/creator: kubernetes-admin
+    serving.knative.dev/lastModifier: kubernetes-admin
+  creationTimestamp: "2024-03-12T12:36:55Z"
+  finalizers:
+  - routes.serving.knative.dev
+  generation: 1
+  labels:
+    serving.knative.dev/service: hello
+  name: hello
+  namespace: default
+  ownerReferences:
+  - apiVersion: serving.knative.dev/v1
+    blockOwnerDeletion: true
+    controller: true
+    kind: Service
+    name: hello
+    uid: dacb2b8d-9068-4b87-85dc-b74ad63e7f15
+  resourceVersion: "90115152"
+  uid: 60f21c0f-8e63-4d3b-b1e0-ced5d54e06fe
+spec:
+  traffic:
+  - configurationName: hello
+    latestRevision: true
+    percent: 100
+status:
+  address:
+    url: http://hello.default.svc.cluster.local
+  conditions:
+  - lastTransitionTime: "2024-03-12T12:37:11Z"
+    status: "True"
+    type: AllTrafficAssigned
+  - lastTransitionTime: "2024-03-12T12:37:11Z"
+    message: external-domain-tls is not enabled
+    reason: TLSNotEnabled
+    status: "True"
+    type: CertificateProvisioned
+  - lastTransitionTime: "2024-03-12T12:37:14Z"
+    status: "True"
+    type: IngressReady
+  - lastTransitionTime: "2024-03-12T12:37:14Z"
+    status: "True"
+    type: Ready
+  observedGeneration: 1
+  traffic:
+  - latestRevision: true
+    percent: 100
+    revisionName: hello-00001
+  url: http://hello.default.192.168.133.2.sslip.io

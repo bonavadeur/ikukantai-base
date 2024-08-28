@@ -1,0 +1,52 @@
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    autoscaling.knative.dev/class: kpa.autoscaling.knative.dev
+    autoscaling.knative.dev/scale-to-zero-pod-retention-period: 0s
+    autoscaling.knative.dev/window: 12s
+    serving.knative.dev/creator: kubernetes-admin
+  creationTimestamp: "2024-03-12T12:37:00Z"
+  labels:
+    app: hello-00001
+    networking.internal.knative.dev/serverlessservice: hello-00001
+    networking.internal.knative.dev/serviceType: Public
+    serving.knative.dev/configuration: hello
+    serving.knative.dev/configurationGeneration: "1"
+    serving.knative.dev/configurationUID: 7e852c09-4a75-43d9-96f2-8604e2e75a86
+    serving.knative.dev/revision: hello-00001
+    serving.knative.dev/revisionUID: 36adffa1-5dbe-44aa-921d-79c8abd8d0ff
+    serving.knative.dev/service: hello
+    serving.knative.dev/serviceUID: dacb2b8d-9068-4b87-85dc-b74ad63e7f15
+  name: hello-00001
+  namespace: default
+  ownerReferences:
+  - apiVersion: networking.internal.knative.dev/v1alpha1
+    blockOwnerDeletion: true
+    controller: true
+    kind: ServerlessService
+    name: hello-00001
+    uid: 17ffdaf8-804b-4f18-a4f9-c21218e322e3
+  resourceVersion: "90115049"
+  uid: 4fcbec6d-b790-4b85-90a3-e3be2db616dd
+spec:
+  clusterIP: 10.233.27.178
+  clusterIPs:
+  - 10.233.27.178
+  internalTrafficPolicy: Cluster
+  ipFamilies:
+  - IPv4
+  ipFamilyPolicy: SingleStack
+  ports:
+  - name: http
+    port: 80
+    protocol: TCP
+    targetPort: 8012
+  - name: https
+    port: 443
+    protocol: TCP
+    targetPort: 8112
+  sessionAffinity: None
+  type: ClusterIP
+status:
+  loadBalancer: {}

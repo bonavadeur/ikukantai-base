@@ -1,0 +1,63 @@
+apiVersion: serving.knative.dev/v1
+kind: Configuration
+metadata:
+  annotations:
+    serving.knative.dev/creator: kubernetes-admin
+    serving.knative.dev/lastModifier: kubernetes-admin
+    serving.knative.dev/routes: hello
+  creationTimestamp: "2024-03-12T12:36:54Z"
+  generation: 1
+  labels:
+    serving.knative.dev/service: hello
+    serving.knative.dev/serviceUID: dacb2b8d-9068-4b87-85dc-b74ad63e7f15
+  name: hello
+  namespace: default
+  ownerReferences:
+  - apiVersion: serving.knative.dev/v1
+    blockOwnerDeletion: true
+    controller: true
+    kind: Service
+    name: hello
+    uid: dacb2b8d-9068-4b87-85dc-b74ad63e7f15
+  resourceVersion: "90115114"
+  uid: 7e852c09-4a75-43d9-96f2-8604e2e75a86
+spec:
+  template:
+    metadata:
+      annotations:
+        autoscaling.knative.dev/scale-to-zero-pod-retention-period: 0s
+        autoscaling.knative.dev/window: 12s
+      creationTimestamp: null
+    spec:
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+            - matchExpressions:
+              - key: kubernetes.io/hostname
+                operator: In
+                values:
+                - node1
+                - node3
+      containerConcurrency: 0
+      containers:
+      - env:
+        - name: TARGET
+          value: Konnichiwa >o<''
+        image: docker.io/daohiep22/helloworld-python
+        name: user-container
+        readinessProbe:
+          successThreshold: 1
+          tcpSocket:
+            port: 0
+        resources: {}
+      enableServiceLinks: false
+      timeoutSeconds: 300
+status:
+  conditions:
+  - lastTransitionTime: "2024-03-12T12:37:10Z"
+    status: "True"
+    type: Ready
+  latestCreatedRevisionName: hello-00001
+  latestReadyRevisionName: hello-00001
+  observedGeneration: 1

@@ -1,0 +1,32 @@
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    serving.knative.dev/creator: kubernetes-admin
+    serving.knative.dev/lastModifier: kubernetes-admin
+  creationTimestamp: "2024-03-12T12:37:10Z"
+  labels:
+    serving.knative.dev/route: hello
+    serving.knative.dev/service: hello
+  name: hello
+  namespace: default
+  ownerReferences:
+  - apiVersion: serving.knative.dev/v1
+    blockOwnerDeletion: true
+    controller: true
+    kind: Route
+    name: hello
+    uid: 60f21c0f-8e63-4d3b-b1e0-ced5d54e06fe
+  resourceVersion: "90115150"
+  uid: ae6e508d-6512-4f4e-b24e-2850e1c10bed
+spec:
+  externalName: kourier-internal.kourier-system.svc.cluster.local
+  ports:
+  - name: http2
+    port: 80
+    protocol: TCP
+    targetPort: 80
+  sessionAffinity: None
+  type: ExternalName
+status:
+  loadBalancer: {}

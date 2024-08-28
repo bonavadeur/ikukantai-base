@@ -1,0 +1,75 @@
+apiVersion: serving.knative.dev/v1
+kind: Revision
+metadata:
+  annotations:
+    autoscaling.knative.dev/scale-to-zero-pod-retention-period: 0s
+    autoscaling.knative.dev/window: 12s
+    serving.knative.dev/creator: kubernetes-admin
+    serving.knative.dev/routes: hello
+    serving.knative.dev/routingStateModified: "2024-03-13T04:10:52Z"
+  creationTimestamp: "2024-03-13T04:10:52Z"
+  generation: 1
+  labels:
+    serving.knative.dev/configuration: hello
+    serving.knative.dev/configurationGeneration: "1"
+    serving.knative.dev/configurationUID: d27069e2-2622-41fa-9160-a9c1b7124c8d
+    serving.knative.dev/routingState: active
+    serving.knative.dev/service: hello
+    serving.knative.dev/serviceUID: cb36e544-c8db-4485-8aed-8c71ce44e695
+  name: hello-00001
+  namespace: default
+  ownerReferences:
+  - apiVersion: serving.knative.dev/v1
+    blockOwnerDeletion: true
+    controller: true
+    kind: Configuration
+    name: hello
+    uid: d27069e2-2622-41fa-9160-a9c1b7124c8d
+  resourceVersion: "90331190"
+  uid: 123c8618-c534-46a1-a005-c9c9308a53e5
+spec:
+  affinity:
+    nodeAffinity:
+      requiredDuringSchedulingIgnoredDuringExecution:
+        nodeSelectorTerms:
+        - matchExpressions:
+          - key: kubernetes.io/hostname
+            operator: In
+            values:
+            - node1
+            - node3
+  containerConcurrency: 0
+  containers:
+  - env:
+    - name: TARGET
+      value: Konnichiwa >o<''
+    image: docker.io/daohiep22/helloworld-python
+    name: user-container
+    readinessProbe:
+      successThreshold: 1
+      tcpSocket:
+        port: 0
+    resources: {}
+  enableServiceLinks: false
+  timeoutSeconds: 300
+status:
+  actualReplicas: 1
+  conditions:
+  - lastTransitionTime: "2024-03-13T04:11:04Z"
+    severity: Info
+    status: "True"
+    type: Active
+  - lastTransitionTime: "2024-03-13T04:11:03Z"
+    status: "True"
+    type: ContainerHealthy
+  - lastTransitionTime: "2024-03-13T04:11:03Z"
+    status: "True"
+    type: Ready
+  - lastTransitionTime: "2024-03-13T04:11:03Z"
+    status: "True"
+    type: ResourcesAvailable
+  containerStatuses:
+  - imageDigest: index.docker.io/daohiep22/helloworld-python@sha256:f968099d03386e71dde9c49ee88cb28da6f737d58717ca79117a286e10df396e
+    name: user-container
+  desiredReplicas: 1
+  observedGeneration: 1

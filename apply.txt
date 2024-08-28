@@ -1,0 +1,28 @@
+
+kubectl apply -f https://github.com/knative/serving/releases/download/knative-v1.12.1/serving-crds.yaml
+kubectl apply -f https://github.com/knative/serving/releases/download/knative-v1.12.1/serving-core.yaml
+kubectl apply -f https://github.com/knative/net-kourier/releases/download/knative-v1.13.0/kourier.yaml
+
+kubectl patch configmap/config-network \
+  --namespace knative-serving \
+  --type merge \
+  --patch '{"data":{"ingress-class":"kourier.ingress.networking.knative.dev"}}'
+
+
+
+
+
+kubectl get configmap kube-proxy -n kube-system -o yaml | \
+sed -e "s/strictARP: false/strictARP: true/" | \
+kubectl diff -f - -n kube-system
+
+kubectl get configmap kube-proxy -n kube-system -o yaml | \
+sed -e "s/strictARP: false/strictARP: true/" | \
+kubectl apply -f - -n kube-system
+
+kubectl apply -f https://raw.githubusercontent.com/metallb/metallb/v0.14.5/config/manifests/metallb-native.yaml
+kubectl apply -f https://raw.githubusercontent.com/metallb/metallb/v0.14.5/config/manifests/metallb-frr.yaml
+
+kubectl apply -f metalLB.yaml
+
+kubectl apply -f https://github.com/knative/serving/releases/download/knative-v1.12.1/serving-default-domain.yaml

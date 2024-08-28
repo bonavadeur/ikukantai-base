@@ -1,0 +1,70 @@
+apiVersion: serving.knative.dev/v1
+kind: Service
+metadata:
+  annotations:
+    kubectl.kubernetes.io/last-applied-configuration: |
+      {"apiVersion":"serving.knative.dev/v1","kind":"Service","metadata":{"annotations":{},"name":"hello","namespace":"default"},"spec":{"template":{"metadata":{"annotations":{"autoscaling.knative.dev/scale-to-zero-pod-retention-period":"0s","autoscaling.knative.dev/window":"12s"}},"spec":{"affinity":{"nodeAffinity":{"requiredDuringSchedulingIgnoredDuringExecution":{"nodeSelectorTerms":[{"matchExpressions":[{"key":"kubernetes.io/hostname","operator":"In","values":["node1","node3"]}]}]}}},"containers":[{"env":[{"name":"TARGET","value":"Konnichiwa \u003eo\u003c''"}],"image":"docker.io/daohiep22/helloworld-python"}]}}}}
+    serving.knative.dev/creator: kubernetes-admin
+    serving.knative.dev/lastModifier: kubernetes-admin
+  creationTimestamp: "2024-03-12T12:36:54Z"
+  generation: 1
+  name: hello
+  namespace: default
+  resourceVersion: "90115154"
+  uid: dacb2b8d-9068-4b87-85dc-b74ad63e7f15
+spec:
+  template:
+    metadata:
+      annotations:
+        autoscaling.knative.dev/scale-to-zero-pod-retention-period: 0s
+        autoscaling.knative.dev/window: 12s
+      creationTimestamp: null
+    spec:
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+            - matchExpressions:
+              - key: kubernetes.io/hostname
+                operator: In
+                values:
+                - node1
+                - node3
+      containerConcurrency: 0
+      containers:
+      - env:
+        - name: TARGET
+          value: Konnichiwa >o<''
+        image: docker.io/daohiep22/helloworld-python
+        name: user-container
+        readinessProbe:
+          successThreshold: 1
+          tcpSocket:
+            port: 0
+        resources: {}
+      enableServiceLinks: false
+      timeoutSeconds: 300
+  traffic:
+  - latestRevision: true
+    percent: 100
+status:
+  address:
+    url: http://hello.default.svc.cluster.local
+  conditions:
+  - lastTransitionTime: "2024-03-12T12:37:10Z"
+    status: "True"
+    type: ConfigurationsReady
+  - lastTransitionTime: "2024-03-12T12:37:14Z"
+    status: "True"
+    type: Ready
+  - lastTransitionTime: "2024-03-12T12:37:14Z"
+    status: "True"
+    type: RoutesReady
+  latestCreatedRevisionName: hello-00001
+  latestReadyRevisionName: hello-00001
+  observedGeneration: 1
+  traffic:
+  - latestRevision: true
+    percent: 100
+    revisionName: hello-00001
+  url: http://hello.default.192.168.133.2.sslip.io
